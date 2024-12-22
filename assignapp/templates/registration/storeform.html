@@ -1,0 +1,41 @@
+{% extends "../registration/base.html" %}
+
+{% block content %}
+
+<div class="col-lg-7">
+    <div class="card shadow-lg border-0 rounded-lg mt-5">
+        <div class="card-header text-center">
+            <h1 class="h4 text-gray-900 mt-2 mb-2">Create Store</h1>
+        </div>
+        <div class="card-body p-5">
+            <form method="post" >
+                {% csrf_token %}
+                <input type="hidden" name="user" value="{{ request.user.id }}">
+                <input type="hidden" name="Created_at" value="{{ created_at }}">
+
+                <div class="mb-3">
+                    <label for="Name" class="form-label">Name</label>
+                    <input type="text" name="Name" id="Name" class="form-control" maxlength="100" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="Description" class="form-label">Description</label>
+                    <textarea name="Description" id="Description" class="form-control" rows="4" required></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label for="Price" class="form-label">Price</label>
+                    <input type="number" name="Price" id="Price" class="form-control" step="0.01" required>
+                </div>
+                <div class="text-center mt-1">
+  <button type="submit" class="btn btn-primary mt-2 ">Save</button>
+</div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}
+

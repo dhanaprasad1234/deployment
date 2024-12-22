@@ -1,0 +1,86 @@
+{% extends "../registration/base.html" %}
+
+{% block content %}</br>
+home page<br>
+{% if user.is_authenticated %}
+Welcome,{{ user.username }}
+
+<form method="post" action="{% url 'assignapp:logout' %}">
+  {% csrf_token %}
+
+  <input type="submit" value="Logout">
+</form>
+
+
+
+    <div class="card shadow bg-light mb-4">
+                        <div class="card-header bg-success  py-3">
+                            <h6 class="m-0  font-weight-bold text-white">Store Items</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                     <div class="row"><div class="col-sm-12">
+                                    <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+                                    <thead>
+                                        <tr><th rowspan="1" colspan="1"><a href="?sort=Name">Name</a></th>
+                                            <th rowspan="1" colspan="1">Description</th>
+                                            <th rowspan="1" colspan="1"><a href="?sort=Price">Price</a></th>
+                                            <th rowspan="1" colspan="1"><a href="?sort=Created_at">Created At</a></th></tr>
+                                    </thead>
+                                    {% for store1 in store1 %}
+                                    <tbody>
+                                           <td rowspan="1" colspan="1">{{ store1.Name }}</td>
+                                            <td rowspan="1" colspan="1">{{ store1.Description }}</td>
+                                            <td rowspan="1" colspan="1">{{ store1.Price }}</td>
+                                            <td rowspan="1" colspan="1">{{ store1.Created_at }}</td>
+
+                                        </tr></tbody>
+                                    {% endfor %}
+                                </table></div></div>
+                            </div>
+                        </div>
+                    </div>
+<div class="pagination">
+        <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}&sort={{ sort_by }}">Previous</a>
+        {% endif %}
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}&sort={{ sort_by }}">Next</a>
+        {% endif %}
+    {% endif %}</div>
+
+{% endblock content %}
+
+
+    <table>
+  <tr>
+      <thead>
+  <th><a href="?sort=Name">Name</a></th>
+    <th>Description</th>
+    <th><a href="?sort=Price">Price</a></th>
+    <th><a href="?sort=Created_at">Created At</a></th>
+    </tr>
+    </thead>
+    <tbody>
+  {% for store1 in store1 %}
+  <tr>
+    <td>{{ store1.Name }}</td>
+    <td>{{ store1.Description }}</td>
+    <td>{{ store1.Price }}</td>
+    <td>{{ store1.Created_at }}</td>
+
+  </tr>
+    {% empty %}
+    <tr>
+        <td >No items available.</td>
+    </tr>
+    </tbody>
+  </table>
+
+{% endfor %}
+
+
+
+
+
